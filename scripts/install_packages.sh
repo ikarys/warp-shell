@@ -30,7 +30,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
 
 # Install Rust-based tools for speed & cyberpunk aesthetics
 echo "⚡ Installing fast Rust tools..."
-~/.cargo/bin/cargo install dust duf procs tealdeer tokei onefetch macchina hyperfine
+~/.cargo/bin/cargo install du-dust procs tealdeer tokei onefetch macchina hyperfine
+
+# Install duf (disk usage) from GitHub releases
+echo "📊 Installing duf (disk usage)..."
+DUF_VERSION="0.8.1"
+curl -sL "https://github.com/muesli/duf/releases/download/v${DUF_VERSION}/duf_${DUF_VERSION}_linux_amd64.tar.gz" | tar -xz -C /tmp
+sudo mv /tmp/duf /usr/local/bin/
 
 # Install delta (better git diff)
 ~/.cargo/bin/cargo install git-delta
