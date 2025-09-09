@@ -30,7 +30,9 @@ cp "$(dirname "$0")/../dotfiles/starship.toml" ~/.config/starship.toml
 # 5. Installer zellij
 if ! command -v zellij >/dev/null; then
   echo "🧱 Installing Zellij..."
-  bash <(curl -L https://zellij.dev/launch)
+  mkdir -p ~/.local/bin
+  curl -L https://github.com/zellij-org/zellij/releases/latest/download/zellij-x86_64-unknown-linux-musl.tar.gz | tar -xz -C ~/.local/bin/
+  chmod +x ~/.local/bin/zellij
 fi
 
 echo "✅ Starship & Zellij setup complete."

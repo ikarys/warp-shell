@@ -44,8 +44,8 @@ alias help="tldr"
 # CYBERPUNK VIBES 🚀
 alias matrix="cmatrix -s -C cyan"
 alias pipes="pipes.sh -t 2 -R"
-alias hacker="hollywood"
 alias neo="cmatrix"
+# alias hacker="hollywood"  # Disabled - problematic on some systems
 
 # Directories shortcuts
 alias projects="cd ~/projects"

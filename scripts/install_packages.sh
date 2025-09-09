@@ -45,5 +45,5 @@ sudo mv /tmp/duf /usr/local/bin/
 curl -sL https://raw.githubusercontent.com/pipeseroni/pipes.sh/master/pipes.sh -o ~/.local/bin/pipes.sh
 chmod +x ~/.local/bin/pipes.sh
 
-# Install hollywood hacker simulator
-sudo apt install -y hollywood
+# Install hollywood hacker simulator (skip if problematic)
+# sudo apt install -y hollywood
