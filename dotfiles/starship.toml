@@ -1,48 +1,115 @@
 add_newline = false
+command_timeout = 1000
 
+# CYBERPUNK THEME
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
+success_symbol = "[▶](bold #00ff41)"
+error_symbol = "[✖](bold #ff0040)"
+vicmd_symbol = "[◀](bold #00ffff)"
 
 [directory]
-style = "bold cyan"
+style = "bold #00ffff"
 truncation_length = 3
 truncate_to_repo = false
-format = "📁 [$path]($style) "
+format = "[ /$path]($style) "
+read_only = " 🔒"
+read_only_style = "#ff0040"
 
 [git_branch]
-symbol = ""
-style = "bold blue"
-format = "on [$symbol $branch]($style) "
+symbol = " "
+style = "bold #ff6b9d"
+format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "yellow"
+style = "#ffff00"
 format = "([$status]($style))"
 conflicted = "⚔"
 ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕"
 up_to_date = ""
-untracked = " ${count}"
-modified = " ✚${count}"
-staged = " ●${count}"
-deleted = " ✖${count}"
-renamed = " »${count}"
+untracked = " ${count}"
+modified = "󰏬 ${count}"
+staged = " ${count}"
+deleted = " ${count}"
+renamed = "󰑕 ${count}"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold #c792ea"
+format = '[\($hash$tag\)]($style) '
 
 [cmd_duration]
 min_time = 500
-format = "⚡ [$duration](yellow)"
+format = "[⚡$duration](bold #00ff41)"
+show_milliseconds = true
+
+[memory_usage]
+disabled = false
+threshold = 70
+format = "[🧠 $ram]($style) "
+style = "bold #ff6b9d"
+
+[battery]
+full_symbol = "🔋"
+charging_symbol = "⚡"
+discharging_symbol = "💀"
+unknown_symbol = "❓"
+empty_symbol = "💥"
+
+[[battery.display]]
+threshold = 15
+style = "bold #ff0040"
+
+[[battery.display]]
+threshold = 50
+style = "bold #ffff00"
+
+[[battery.display]]
+threshold = 80
+style = "bold #00ff41"
 
 [python]
-symbol = "🐍"
-style = "green"
+symbol = " "
+style = "#00ff41"
+format = '[$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
 
 [nodejs]
-symbol = "⬢"
-style = "green"
+symbol = " "
+style = "#00ff41"
+format = '[$symbol($version )]($style)'
+
+[rust]
+symbol = " "
+style = "#ff6b9d"
+format = '[$symbol($version )]($style)'
+
+[docker_context]
+symbol = " "
+style = "bold #00ffff"
+format = '[$symbol$context]($style) '
 
 [time]
 disabled = false
-format = "[$time]($style)"
+format = '[🕐$time]($style)'
 time_format = "%H:%M:%S"
-style = "dimmed white"
+style = "bold #c792ea"
+
+[username]
+style_user = "bold #00ff41"
+style_root = "bold #ff0040"
+format = '[$user]($style)[@](bold #00ffff)'
+show_always = true
+
+[hostname]
+ssh_only = false
+format = '[$hostname]($style) '
+style = "bold #00ffff"
+
+[line_break]
+disabled = false
+
+[package]
+symbol = "󰏗 "
+style = "#ffff00"
+format = '[$symbol$version]($style) '

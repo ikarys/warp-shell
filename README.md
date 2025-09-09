@@ -39,6 +39,8 @@ Designed to be reproducible across multiple machines with:
 | Package                | Description                                         | Replaces / Enhances     |
 |------------------------|-----------------------------------------------------|--------------------------|
 | `zsh`                  | Modern shell, faster and more scriptable            | Replaces `bash`         |
+| `starship`             | Fast, minimal, and customizable shell prompt        | Enhances shell prompt   |
+| `zellij`               | Modern terminal multiplexer (tmux alternative)      | Replaces `tmux`         |
 | `neovim`               | Modern, extensible Vim-based text editor            | Enhances `vim`           |
 | `btop`                 | TUI system monitor with clean interface             | Replaces `top`, `htop`   |
 | `fzf`                  | Fuzzy finder for anything (files, history...)       | Enhances `Ctrl+R`, `find` |

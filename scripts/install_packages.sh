@@ -4,7 +4,7 @@ sudo apt update && sudo apt install -y \
   zsh git curl wget unzip neovim btop \
   build-essential software-properties-common \
   fzf bat ripgrep fd-find eza tldr \
-  locales taskwarrior zoxide 
+  locales taskwarrior zoxide cmatrix 
 
 echo "🔁 Updating packages..."
 sudo apt upgrade -y
@@ -27,3 +27,17 @@ ln -s /usr/bin/batcat ~/.local/bin/bat
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+
+# Install Rust-based tools for speed & cyberpunk aesthetics
+echo "⚡ Installing fast Rust tools..."
+~/.cargo/bin/cargo install dust duf procs tealdeer tokei onefetch macchina hyperfine
+
+# Install delta (better git diff)
+~/.cargo/bin/cargo install git-delta
+
+# Install pipes.sh for cyberpunk vibes
+curl -sL https://raw.githubusercontent.com/pipeseroni/pipes.sh/master/pipes.sh -o ~/.local/bin/pipes.sh
+chmod +x ~/.local/bin/pipes.sh
+
+# Install hollywood hacker simulator
+sudo apt install -y hollywood
