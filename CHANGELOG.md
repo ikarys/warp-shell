@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.3] - 2024-11-01
+
+### Bug Fixes
+
+#### Fixed
+- **Atuin initialization in .zshrc**: Added atuin PATH and init to dotfiles/.zshrc
+  - Fixed "command not found: atuin" error on new machines after bootstrap
+  - Added conditional checks to prevent errors if atuin not installed
+  - Ensures atuin works in all new terminals after installation
+
+---
+
 ## [2.0.2] - 2024-11-01
 
 ### Bug Fixes
