@@ -1,0 +1,26 @@
+# Temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+temp.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.claude/
+
+# Local configs (user-specific)
+.env
+.env.local
+
+# Build artifacts
+*.tar.gz
+lazygit
+lazydocker
+
+# User-specific shell history and cache
+.zsh_history
+.zcompdump*

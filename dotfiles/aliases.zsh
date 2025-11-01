@@ -9,19 +9,16 @@ alias glog="git log --oneline --graph --decorate --all"
 alias lazygit="lazygit"
 alias lg="lazygit"
 
-# Modern CLI replacements (FAST & EFFICIENT)
+# Modern CLI tools - use native commands (no aliases that break scripts)
+# ls/ll/la aliases are ok (common pattern)
 alias ls="eza --icons"
 alias ll="eza -alh --git --icons"
 alias l="eza -lh --icons"
 alias la="eza -la --icons"
 alias tree="eza -T -alh --git --icons --level=2"
-alias grep="rg"
-alias find="fd"
-alias du="dust"
-alias df="duf"
-alias ps="procs"
-alias top="btop"
-alias cat="bat --style=numbers,changes,header"
+
+# Don't alias grep/find/cat - use rg/fd/bat directly
+# This prevents breaking scripts that expect standard grep/find syntax
 
 # System & productivity 
 alias update="sudo apt update && sudo apt upgrade -y"

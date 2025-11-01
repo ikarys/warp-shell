@@ -9,19 +9,10 @@ export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 
 # Pager
-export PAGER="bat"
-alias cat="bat"
+export PAGER="less"
 
-# Aliases
+# Aliases (sourced from dotfiles/aliases.zsh)
 [[ -f "$HOME/aliases.zsh" ]] && source "$HOME/aliases.zsh"
-
-# Remap common commands
-alias ls="eza"
-alias ll="eza -alh --git"
-alias l="eza -lh"
-alias tree="eza -T -alh --git --level=1"
-alias update="sudo apt update && sudo apt upgrade -y"
-alias grep="rg"
 
 # Python virtualenv fix
 export VIRTUAL_ENV_DISABLE_PROMPT=1
