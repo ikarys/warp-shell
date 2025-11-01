@@ -39,5 +39,13 @@ export FZF_DEFAULT_OPTS="--color=fg:#c0caf5,bg:#1a1b26,hl:#bb9af7,fg+:#c0caf5,bg
 # Git delta config
 export GIT_PAGER="delta"
 
+# Atuin (advanced shell history)
+if [ -f "$HOME/.atuin/bin/env" ]; then
+  . "$HOME/.atuin/bin/env"
+fi
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh)"
+fi
+
 # Starship prompt
 eval "$(starship init zsh)"
