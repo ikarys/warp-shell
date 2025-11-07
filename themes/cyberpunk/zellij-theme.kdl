@@ -1,0 +1,18 @@
+// Warp Shell - Zellij Cyberpunk Theme
+// ====================================
+
+themes {
+    cyberpunk {
+        fg "#e0e0e0"
+        bg "#0a0e27"
+        black "#1a1a2e"
+        red "#ff0055"
+        green "#00ff9f"
+        yellow "#ffff00"
+        blue "#00b4d8"
+        magenta "#ff00ff"
+        cyan "#00ffff"
+        white "#e0e0e0"
+        orange "#ff6b35"
+    }
+}

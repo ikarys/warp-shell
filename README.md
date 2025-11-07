@@ -1,127 +1,210 @@
-# 🧰 WSL Productivity Environment Bootstrap
+# 🚀 Warp Shell
 
-A modular, modern, and productivity-focused setup script for bootstrapping a clean and efficient **terminal environment in WSL (Ubuntu 22.04 / 24.04)**.
+Configuration de terminal moderne, modulaire et optimisée pour la productivité. Conçu pour WSL (Ubuntu 22.04/24.04) mais fonctionne sur tout Linux.
 
-Includes:
-- A fast Zsh + Starship shell
-- Smart command-line tools (ripgrep, bat, fzf, etc.)
-- A minimal layout with versioned dotfiles
-- Optional terminal UI tools and visual tweaks
+## ✨ Caractéristiques
 
-Ideal for developers, sysadmins, and power users who want a better WSL terminal experience — not just another dev stack.
+### 🐚 Shell Moderne
+- **Zsh** avec configuration optimisée
+- **Starship** prompt cyberpunk thématique
+- **Zellij** multiplexeur terminal intuitif avec layouts pré-configurés
 
-Designed to be reproducible across multiple machines with:
-- clean Zsh shell
-- Starship prompt
-- modern CLI tools
-- versioned dotfiles
-- and optional terminal visual customization.
+### 🔧 Outils CLI Modernes
+Remplacements performants des outils classiques:
+- `ripgrep` → grep rapide
+- `bat` → cat avec syntax highlighting
+- `eza` → ls moderne avec git awareness
+- `fd` → find simplifié
+- `zoxide` → cd intelligent
+- `fzf` → fuzzy finder universel
+- `delta` → git diff amélioré
+- `atuin` → historique shell avancé
 
----
+### 💻 Dev Tools
+- **mise** - Gestionnaire de versions multi-langages (Python, Node, Rust)
+- **lazygit** - TUI Git puissant
+- **lazydocker** - TUI Docker
+- **pre-commit** + **commitizen** - Git workflow moderne
+- **Neovim** avec **LazyVim** - IDE moderne dans le terminal
 
-## 🚀 Key Features
+### 🤖 Agents IA
+Agents spécialisés utilisant Ollama:
+- **Jira Draft** - Rédaction de tickets Jira professionnels
+- **Code Review** - Review automatique de code
+- **Traduction** - Traduction de texte et fichiers
 
-✅ **Zsh + Starship**: Fast, minimal shell setup with a customizable prompt  
-🧱 **Zellij**: Terminal multiplexer (tmux alternative) with intuitive keybindings  
-⚙️ **Modern CLI stack**:  
-- `ls` → `eza`  
-- `cat` → `bat`  
-- `grep` → `ripgrep`  
-- `find` → `fd`  
-- `cd` → `zoxide`  
-- `du` → `dust`  
-- `top` → `btop`  
+Modèles optimisés selon ta machine (laptop léger / desktop RTX puissant)
 
----
-
-## 📦 Installed Packages Overview
-
-| Package                | Description                                         | Replaces / Enhances     |
-|------------------------|-----------------------------------------------------|--------------------------|
-| `zsh`                  | Modern shell, faster and more scriptable            | Replaces `bash`         |
-| `starship`             | Fast, minimal, and customizable shell prompt        | Enhances shell prompt   |
-| `zellij`               | Modern terminal multiplexer (tmux alternative)      | Replaces `tmux`         |
-| `neovim`               | Modern, extensible Vim-based text editor            | Enhances `vim`           |
-| `btop`                 | TUI system monitor with clean interface             | Replaces `top`, `htop`   |
-| `fzf`                  | Fuzzy finder for anything (files, history...)       | Enhances `Ctrl+R`, `find` |
-| `bat`                  | `cat` with syntax highlighting and git integration  | Replaces `cat`           |
-| `ripgrep`              | Ultra-fast file search with regex                   | Replaces `grep`          |
-| `fd-find`              | Fast, intuitive file finder                         | Replaces `find`          |
-| `eza`                  | Modern `ls` with icons and Git awareness            | Replaces `ls`            |
-| `tldr`                 | Simplified manpages with real examples              | Enhances `man`           |
-| `locales`              | Sets up system-wide language encoding               | Required for UTF-8       |
-| `taskwarrior`          | Powerful task and todo management in CLI            | CLI task manager         |
-| `zoxide`               | Smarter `cd` with jump memory                       | Replaces `cd`            |
-| `git`                  | Version control system                              | —                        |
-| `curl` / `wget`        | Command-line tools to fetch files over HTTP(S)      | —                        |
-| `unzip`                | Extract `.zip` archives                             | —                        |
-| `build-essential`      | Compiler, linker and build tools                    | Needed for compiling     |
-| `software-properties-common` | Adds support for PPAs / apt repo mgmt       | Enables `add-apt-repository` |
----
-
-## Aliases
-
-The `dotfiles/aliases.zsh` file includes a set of helpful aliases to streamline your workflow. Below is a table summarizing the available aliases:
-
-| **Alias**   | **Command**                                      | **Description**                                   |
-|-------------|--------------------------------------------------|-------------------------------------------------|
-| `cat`       | `bat`                                            | Replaces `cat` with `bat` for syntax highlighting. |
-| `gs`        | `git status`                                     | Displays the current Git status.                |
-| `gl`        | `git pull origin`                                | Pulls the latest changes from the remote repository. |
-| `gp`        | `git push origin`                                | Pushes changes to the remote repository.        |
-| `gd`        | `git diff`                                       | Shows the differences between commits or files. |
-| `ga`        | `git add .`                                      | Stages all changes for commit.                  |
-| `gc`        | `git commit -m`                                  | Commits changes with a message.                 |
-| `ls`        | `eza`                                            | Replaces `ls` with `eza` for enhanced output.   |
-| `ll`        | `eza -alh --git`                                 | Lists all files with detailed information and Git status. |
-| `l`         | `eza -lh`                                        | Lists files in a concise format.                |
-| `tree`      | `eza -T -alh --git --level=1`                    | Displays a tree view of the current directory.  |
-| `update`    | `sudo apt update && sudo apt upgrade -y`         | Updates and upgrades system packages.           |
-| `grep`      | `rg`                                             | Replaces `grep` with `ripgrep` for faster searching. |
-| `c`         | `clear`                                          | Clears the terminal screen.                     |
-| `top`       | `btop`                                           | Replaces `top` with `btop` for a better system monitor. |
-| `v`, `vim`      | `nvim`                                           | Opens `nvim` (Neovim) as the default editor.    |
-| `zj`        | `zellij`                                         | Shortcut for launching `zellij`.               |
-
-These aliases are designed to improve productivity and simplify common tasks.
-
----
-
-
-📦 **Dotfiles managed and versioned**:  
-- `~/.zshrc`  
-- `aliases.zsh`  
-- `starship.toml`  
-
-🧠 **Makefile-based automation**  
-🎨 Optional terminal font and color theme instructions
-
----
+### 🎨 Thème Cyberpunk
+Thème coordonné à travers tous les outils avec palette néon:
+- Cyan (`#00ffff`)
+- Magenta (`#ff00ff`)
+- Jaune (`#ffff00`)
 
 ## 📦 Installation
 
+### Prérequis
+- Ubuntu 22.04 ou 24.04 (WSL recommandé)
+- Connexion internet
+- Droits sudo
+
+### Installation Rapide
 ```bash
-git clone https://github.com/yourname/wslenvInstaller.git
-cd wslenvInstaller
-make bootstrap
+# Clone le repo
+git clone https://github.com/ikarys/warp-shell.git
+cd warp-shell
+
+# Installation complète
+chmod +x scripts/**/*.sh
+just install
 ```
+
+### Installation Modulaire
+```bash
+# Seulement le shell et CLI tools
+just install-base
+just install-shell
+just install-cli-tools
+
+# Dev tools
+just install-dev
+just install-editor
+
+# Terminal multiplexer
+just install-terminal
+
+# Agents IA
+just install-ai
+
+# Thème
+just install-theme
+```
+
+## 🎯 Quick Start
+
+### Zellij Layouts
+```bash
+# Dev layout (neovim + lazygit + terminal)
+zellij --layout dev
+
+# Ops layout (btop + lazydocker + logs)
+zellij --layout ops
+
+# Review layout (code + review + git)
+zellij --layout review
+
+# Ou utilise les alias
+zj-dev
+zj-ops
+```
+
+### Agents IA
+```bash
+# Draft Jira ticket
+just jira-draft "Ajouter authentification OAuth2"
+just jira-draft --interactive --lang=en
+
+# Code review
+git add .
+just review
+
+# Traduction
+just translate "Hello world" --to=fr
+just translate-file README.md --to=en
+```
+
+### Dev Workflow
+```bash
+# Setup langages avec mise
+mise use -g python@latest node@lts rust@latest
+
+# Git avec lazygit
+lg
+
+# Docker avec lazydocker
+ld
+
+# Edit avec Neovim
+nvim myfile.py
+```
+
+## 🛠️ Commandes Justfile
+
+```bash
+just --list              # Liste toutes les commandes
+just install            # Installation complète
+just install-<module>   # Installation modulaire
+just sync-dotfiles      # Sync config avec chezmoi
+just update            # Mise à jour des outils
+just clean             # Nettoyage
+just check             # Vérification système
+just info              # Info configuration
+```
+
+## 📁 Structure du Projet
+
+```
+warp-shell/
+├── Justfile                    # Orchestration
+├── scripts/
+│   ├── modules/               # Scripts d'installation modulaires
+│   └── utils/                 # Utilitaires (colors, checks)
+├── dotfiles/                  # Templates dotfiles (chezmoi)
+│   ├── dot_zshrc.tmpl
+│   └── dot_config/
+│       ├── starship.toml
+│       ├── zellij/
+│       └── nvim/
+├── agents/                    # Agents IA
+│   ├── core/                 # Classes de base
+│   ├── jira_draft.py
+│   ├── code_review.py
+│   ├── translate.py
+│   └── config/prompts/       # Prompts système
+├── themes/cyberpunk/          # Thème cyberpunk
+└── docs/                      # Documentation
+```
+
+## 🎨 Customisation
+
+### Ajouter des Alias
+Édite `~/.zshrc.local` (non versionné):
+```bash
+echo 'alias myalias="command"' >> ~/.zshrc.local
+```
+
+### Changer le Thème
+Modifie `~/.config/starship.toml` et `~/.config/zellij/themes/cyberpunk.kdl`
+
+### Créer un Agent IA
+1. Copie un agent existant dans `agents/`
+2. Crée un prompt dans `agents/config/prompts/`
+3. Ajoute une commande dans `Justfile`
+
+## 📖 Documentation
+
+- [Installation détaillée](docs/INSTALL.md)
+- [Guide Agents IA](docs/AGENTS.md)
+- [Raccourcis clavier](docs/KEYBINDINGS.md)
+
+## 🤝 Contribution
+
+Les contributions sont bienvenues! N'hésite pas à ouvrir une issue ou PR.
+
+## 📝 License
+
+MIT License - Fais-en ce que tu veux!
+
+## 🙏 Crédits
+
+Construit avec des outils open source incroyables:
+- [Starship](https://starship.rs/)
+- [Zellij](https://zellij.dev/)
+- [Neovim](https://neovim.io/)
+- [LazyVim](https://www.lazyvim.org/)
+- [Ollama](https://ollama.com/)
+- Et bien d'autres...
+
 ---
 
-## 🧱 Zellij – Terminal Multiplexer
-
-Zellij is a modern alternative to tmux, providing an intuitive way to split your terminal into multiple panes and tabs.
-
-### 🚀 Alias (add to your aliases.zsh)
-```bash
-alias zj="zellij"
-```
-
-| Action                     | Keybinding                                   |
-| -------------------------- | -------------------------------------------- |
-| New **pane** (split below) | `Ctrl + p`, then `d`                         |
-| New **pane** (split right) | `Alt + n`                                    |
-| New **tab**                | `Ctrl + p`, then `t`                         |
-| Switch to next **tab**     | `Alt + arrows`                                    |
-| Close current pane         | `Ctrl + d`                                   |
-| Show help                  | `F1`                                         |
-| Lock controls              | `Ctrl + g`                                   |
+Fait avec ⚡ par [@ikarys](https://github.com/ikarys)

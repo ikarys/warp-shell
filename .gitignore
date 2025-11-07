@@ -1,0 +1,47 @@
+# Warp Shell - Git Ignore
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Local configuration
+*.local
+.env
+secrets/
+
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# OS specific
+.Trash-*/
+.nfs*

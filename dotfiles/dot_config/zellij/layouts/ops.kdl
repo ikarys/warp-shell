@@ -1,0 +1,42 @@
+// Warp Shell - Zellij Ops Layout
+// Optimized for operations and DevOps tasks
+
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="ops" focus=true {
+        pane split_direction="horizontal" {
+            // Top row
+            pane split_direction="vertical" size="50%" {
+                // System monitor (top left)
+                pane size="50%" {
+                    command "btop"
+                }
+                // Logs / kubectl (top right)
+                pane size="50%"
+            }
+            
+            // Bottom row
+            pane split_direction="vertical" size="50%" {
+                // Docker (bottom left)
+                pane size="50%" {
+                    command "lazydocker"
+                }
+                // Terminal (bottom right)
+                pane size="50%"
+            }
+        }
+    }
+
+    tab name="terminal" {
+        pane
+    }
+}
