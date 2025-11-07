@@ -1,26 +1,47 @@
-# Temporary files
-*.log
-*.tmp
+# Warp Shell - Git Ignore
+
+# System files
 .DS_Store
 Thumbs.db
-temp.txt
 
-# IDE
+# Editor files
 .vscode/
 .idea/
 *.swp
 *.swo
-.claude/
+*~
 
-# Local configs (user-specific)
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Local configuration
+*.local
 .env
-.env.local
+secrets/
 
-# Build artifacts
-*.tar.gz
-lazygit
-lazydocker
+# Backup files
+*.backup
+*.bak
+*.old
 
-# User-specific shell history and cache
-.zsh_history
-.zcompdump*
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# OS specific
+.Trash-*/
+.nfs*

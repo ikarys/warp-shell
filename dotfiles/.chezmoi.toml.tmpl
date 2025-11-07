@@ -1,0 +1,13 @@
+# Warp Shell - Chezmoi Configuration
+
+[data]
+    # Machine info (can be customized per machine)
+    hostname = "{{ .chezmoi.hostname }}"
+    username = "{{ .chezmoi.username }}"
+
+[diff]
+    pager = "delta"
+
+[merge]
+    command = "nvim"
+    args = ["-d"]

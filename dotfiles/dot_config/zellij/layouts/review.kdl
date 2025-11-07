@@ -1,0 +1,36 @@
+// Warp Shell - Zellij Review Layout
+// Optimized for code review workflow
+
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="review" focus=true {
+        pane split_direction="vertical" {
+            // Code viewer (left, 60%)
+            pane size="60%" {
+                focus true
+            }
+            
+            // Right side
+            pane split_direction="horizontal" size="40%" {
+                // AI code review output (top right, 60%)
+                pane size="60%"
+                
+                // Git diff / commands (bottom right, 40%)
+                pane size="40%"
+            }
+        }
+    }
+
+    tab name="terminal" {
+        pane
+    }
+}

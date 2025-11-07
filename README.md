@@ -1,363 +1,210 @@
-# 🚀 Warp Shell - Modern Development Environment
+# 🚀 Warp Shell
 
-A complete, modular, and portable development environment for WSL Ubuntu. Bootstrap your entire dev stack with toolchains, IaC tools, AI agents, and modern CLI utilities - all version-controlled and reproducible across machines.
+Configuration de terminal moderne, modulaire et optimisée pour la productivité. Conçu pour WSL (Ubuntu 22.04/24.04) mais fonctionne sur tout Linux.
 
-**Not just another dotfiles repo** - This is a full-featured development workstation setup with:
-- 🐍 Python (pyenv, poetry, pipx)
-- 📗 Node.js (nvm, pnpm)
-- 🦀 Rust (cargo tools)
-- 🐳 Docker & devcontainers
-- ☸️ IaC tools (terraform, opentofu, k8s)
-- 🤖 Local AI agents (Ollama)
-- 🔮 Advanced shell history (atuin)
-- 🎨 Modern CLI tools
+## ✨ Caractéristiques
 
----
+### 🐚 Shell Moderne
+- **Zsh** avec configuration optimisée
+- **Starship** prompt cyberpunk thématique
+- **Zellij** multiplexeur terminal intuitif avec layouts pré-configurés
 
-## ✨ Features
+### 🔧 Outils CLI Modernes
+Remplacements performants des outils classiques:
+- `ripgrep` → grep rapide
+- `bat` → cat avec syntax highlighting
+- `eza` → ls moderne avec git awareness
+- `fd` → find simplifié
+- `zoxide` → cd intelligent
+- `fzf` → fuzzy finder universel
+- `delta` → git diff amélioré
+- `atuin` → historique shell avancé
 
-### 🛠️ Development Toolchains
-- **Python**: pyenv, poetry, pipx, black, ruff, pytest
-- **Node.js**: nvm, pnpm, typescript, biome, prettier
-- **Rust**: rustup, cargo, clippy, rustfmt
-- **Go**: (optional) go, gopls
+### 💻 Dev Tools
+- **mise** - Gestionnaire de versions multi-langages (Python, Node, Rust)
+- **lazygit** - TUI Git puissant
+- **lazydocker** - TUI Docker
+- **pre-commit** + **commitizen** - Git workflow moderne
+- **Neovim** avec **LazyVim** - IDE moderne dans le terminal
 
-### 🐳 Containers & Infrastructure
-- **Docker**: docker, docker-compose, lazydocker
-- **Kubernetes**: kubectl, helm, k9s, kubectx, kustomize
-- **IaC**: terraform (tfenv), opentofu, terragrunt (tenv)
-- **Devcontainers**: Ready-to-use templates for Python, Node, Rust, Fullstack
+### 🤖 Agents IA
+Agents spécialisés utilisant Ollama:
+- **Jira Draft** - Rédaction de tickets Jira professionnels
+- **Code Review** - Review automatique de code
+- **Traduction** - Traduction de texte et fichiers
 
-### 🤖 AI & Productivity
-- **Ollama**: Local LLM for AI agents
-- **AI Agents**: Translator, Jira ticket generator, doc generator
-- **Atuin**: Magical shell history sync & search
-- **Commitizen**: Conventional commits
-- **Pre-commit**: Git hooks automation
+Modèles optimisés selon ta machine (laptop léger / desktop RTX puissant)
 
-### ⚡ Modern CLI Tools
-- `eza` (ls replacement) - File listing with icons
-- `bat` (cat replacement) - Syntax highlighting
-- `rg` (ripgrep) - Ultra-fast grep
-- `fd` (find replacement) - Intuitive file finder
-- `zoxide` - Smart cd with frecency
-- `fzf` - Fuzzy finder
-- `btop` - System monitor
-- `lazygit` - Git TUI
-- `delta` - Better git diffs
-- `yq/jq` - YAML/JSON processors
-- `glow` - Markdown renderer
+### 🎨 Thème Cyberpunk
+Thème coordonné à travers tous les outils avec palette néon:
+- Cyan (`#00ffff`)
+- Magenta (`#ff00ff`)
+- Jaune (`#ffff00`)
 
-### 🎨 Shell & Terminal
-- **Zsh** with Starship prompt
-- **Zellij** terminal multiplexer
-- **Nerd Fonts** (JetBrains Mono, Fira Code)
-- **Tokyo Night** theme
+## 📦 Installation
 
----
+### Prérequis
+- Ubuntu 22.04 ou 24.04 (WSL recommandé)
+- Connexion internet
+- Droits sudo
 
-## 🚀 Quick Start
-
-> **📖 Full installation guide:** See [INSTALL.md](INSTALL.md) for complete instructions
-
-### One-line install
+### Installation Rapide
 ```bash
-git clone https://github.com/ikarys/warp-shell.git ~/warp-shell
-cd ~/warp-shell
-./bootstrap.sh --quick
+# Clone le repo
+git clone https://github.com/ikarys/warp-shell.git
+cd warp-shell
+
+# Installation complète
+chmod +x scripts/**/*.sh
+just install
 ```
 
-### Interactive install
+### Installation Modulaire
 ```bash
-./bootstrap.sh
-# Choose: Quick / Full / Custom
+# Seulement le shell et CLI tools
+just install-base
+just install-shell
+just install-cli-tools
+
+# Dev tools
+just install-dev
+just install-editor
+
+# Terminal multiplexer
+just install-terminal
+
+# Agents IA
+just install-ai
+
+# Thème
+just install-theme
 ```
 
-### Using Just (recommended)
-```bash
-# Install Just first (included in base setup)
-cargo install just
+## 🎯 Quick Start
 
-# Then use commands:
-just bootstrap-all      # Full installation
-just bootstrap-quick    # Quick setup (base + shell + rust)
-just --list            # Show all available commands
+### Zellij Layouts
+```bash
+# Dev layout (neovim + lazygit + terminal)
+zellij --layout dev
+
+# Ops layout (btop + lazydocker + logs)
+zellij --layout ops
+
+# Review layout (code + review + git)
+zellij --layout review
+
+# Ou utilise les alias
+zj-dev
+zj-ops
 ```
 
----
+### Agents IA
+```bash
+# Draft Jira ticket
+just jira-draft "Ajouter authentification OAuth2"
+just jira-draft --interactive --lang=en
 
-## 📁 Project Structure
+# Code review
+git add .
+just review
+
+# Traduction
+just translate "Hello world" --to=fr
+just translate-file README.md --to=en
+```
+
+### Dev Workflow
+```bash
+# Setup langages avec mise
+mise use -g python@latest node@lts rust@latest
+
+# Git avec lazygit
+lg
+
+# Docker avec lazydocker
+ld
+
+# Edit avec Neovim
+nvim myfile.py
+```
+
+## 🛠️ Commandes Justfile
+
+```bash
+just --list              # Liste toutes les commandes
+just install            # Installation complète
+just install-<module>   # Installation modulaire
+just sync-dotfiles      # Sync config avec chezmoi
+just update            # Mise à jour des outils
+just clean             # Nettoyage
+just check             # Vérification système
+just info              # Info configuration
+```
+
+## 📁 Structure du Projet
 
 ```
 warp-shell/
-├── bootstrap/              # Modular installation scripts
-│   ├── base.sh            # Base packages & CLI tools
-│   ├── shell.sh           # Zsh, Starship, Zellij
-│   ├── rust.sh            # Rust toolchain
-│   ├── python.sh          # Python (pyenv, poetry)
-│   ├── nodejs.sh          # Node.js (nvm, pnpm)
-│   ├── docker.sh          # Docker & lazydocker
-│   ├── iac.sh             # Terraform, K8s tools
-│   ├── utils.sh           # yq, jq, glow, httpie
-│   ├── atuin.sh           # Advanced history
-│   ├── ai.sh              # Ollama & AI models
-│   ├── git-tools.sh       # Commitizen, pre-commit
-│   └── visuals.sh         # Fonts & themes
-│
-├── dotfiles/              # Configuration files
-│   ├── .zshrc             # Zsh configuration
-│   ├── aliases.zsh        # Shell aliases
-│   ├── starship.toml      # Starship prompt config
-│   └── atuin/             # Atuin config
-│
-├── devcontainers/         # VS Code devcontainer templates
-│   ├── python/
-│   ├── nodejs/
-│   ├── rust/
-│   └── fullstack/
-│
-├── agents/                # AI agent scripts
-│   ├── translator.sh      # Multi-language translator
-│   ├── jira-ticket.sh     # Jira ticket generator
-│   └── doc-generator.sh   # Code documentation generator
-│
-├── templates/             # Document templates
-│   ├── jira-ticket.md
-│   ├── adr-template.md
-│   └── pre-commit-config.yaml
-│
-├── Justfile              # Command runner (replaces Makefile)
-└── bootstrap.sh          # Main installation script
+├── Justfile                    # Orchestration
+├── scripts/
+│   ├── modules/               # Scripts d'installation modulaires
+│   └── utils/                 # Utilitaires (colors, checks)
+├── dotfiles/                  # Templates dotfiles (chezmoi)
+│   ├── dot_zshrc.tmpl
+│   └── dot_config/
+│       ├── starship.toml
+│       ├── zellij/
+│       └── nvim/
+├── agents/                    # Agents IA
+│   ├── core/                 # Classes de base
+│   ├── jira_draft.py
+│   ├── code_review.py
+│   ├── translate.py
+│   └── config/prompts/       # Prompts système
+├── themes/cyberpunk/          # Thème cyberpunk
+└── docs/                      # Documentation
 ```
 
----
+## 🎨 Customisation
 
-## 📦 Installation Options
-
-### Full Installation (~20 min)
-Installs everything: toolchains, docker, IaC, AI agents, utils
+### Ajouter des Alias
+Édite `~/.zshrc.local` (non versionné):
 ```bash
-./bootstrap.sh --full
-# OR
-just bootstrap-all
+echo 'alias myalias="command"' >> ~/.zshrc.local
 ```
 
-### Quick Installation (~5 min)
-Base packages + shell + rust tools
-```bash
-./bootstrap.sh --quick
-# OR
-just bootstrap-quick
-```
+### Changer le Thème
+Modifie `~/.config/starship.toml` et `~/.config/zellij/themes/cyberpunk.kdl`
 
-### Component Installation
-Install specific components:
-```bash
-just python      # Python toolchain
-just nodejs      # Node.js toolchain
-just docker      # Docker & tools
-just iac         # Infrastructure tools
-just ai          # AI/Ollama setup
-just atuin       # Advanced history
-just utils       # Utilities (jq, yq, etc)
-just git-tools   # Git tools
-just visuals     # Fonts & themes
-```
+### Créer un Agent IA
+1. Copie un agent existant dans `agents/`
+2. Crée un prompt dans `agents/config/prompts/`
+3. Ajoute une commande dans `Justfile`
+
+## 📖 Documentation
+
+- [Installation détaillée](docs/INSTALL.md)
+- [Guide Agents IA](docs/AGENTS.md)
+- [Raccourcis clavier](docs/KEYBINDINGS.md)
+
+## 🤝 Contribution
+
+Les contributions sont bienvenues! N'hésite pas à ouvrir une issue ou PR.
+
+## 📝 License
+
+MIT License - Fais-en ce que tu veux!
+
+## 🙏 Crédits
+
+Construit avec des outils open source incroyables:
+- [Starship](https://starship.rs/)
+- [Zellij](https://zellij.dev/)
+- [Neovim](https://neovim.io/)
+- [LazyVim](https://www.lazyvim.org/)
+- [Ollama](https://ollama.com/)
+- Et bien d'autres...
 
 ---
 
-## 🎯 Usage Examples
-
-### Justfile Commands
-```bash
-# Development
-just py-new myproject      # Create new Poetry project
-just py-test              # Run Python tests
-just node-dev             # Start Node dev server
-
-# Docker
-just docker-up            # Start containers
-just docker-logs          # View logs
-
-# Infrastructure
-just tf-plan              # Terraform plan
-just tg-apply             # Terragrunt apply
-just k9s                  # Launch k9s
-
-# AI Agents
-just translate "Hello"    # Translate text
-just jira-ticket "feat"   # Generate Jira ticket
-just gen-doc "./file.py"  # Generate docs
-
-# Maintenance
-just update               # Update all packages
-just info                 # Show system info
-```
-
-### AI Agents
-```bash
-# Translate text (auto-detects language)
-./agents/translator.sh "Bonjour le monde"
-
-# Generate Jira ticket
-./agents/jira-ticket.sh "Add user authentication"
-
-# Generate documentation
-./agents/doc-generator.sh ./src/main.py
-```
-
----
-
-## 🔧 Customization
-
-### Aliases
-Edit `dotfiles/aliases.zsh` - optimized to NOT break scripts:
-- ✅ `ls`, `ll`, `la` → `eza` (safe)
-- ❌ No `grep` → `rg` (use `rg` directly)
-- ❌ No `find` → `fd` (use `fd` directly)
-
-### Starship Prompt
-Edit `dotfiles/starship.toml` to customize your prompt
-
-### Devcontainers
-Copy templates from `devcontainers/` to your projects:
-```bash
-cp -r devcontainers/python/.devcontainer.json myproject/
-```
-
----
-
-## 🤖 AI Agents Setup
-
-After installation, configure Ollama:
-```bash
-# Models are auto-installed, but you can add more:
-ollama pull codellama      # Code-focused model
-ollama pull llama2         # General purpose
-ollama list                # View installed models
-```
-
-Create custom agents in `agents/` using the templates.
-
----
-
-## 🐳 Devcontainer Templates
-
-Ready-to-use devcontainer configurations:
-
-1. **Python**: Python 3.12, Poetry, Black, Ruff
-2. **Node.js**: Node 20 LTS, pnpm, TypeScript, Biome
-3. **Rust**: Latest Rust, rust-analyzer, clippy
-4. **Fullstack**: Python + Node + Docker + PostgreSQL + Redis
-
-Copy to your project:
-```bash
-cp devcontainers/python/.devcontainer.json .devcontainer/
-```
-
----
-
-## 🔄 Multi-Machine Setup
-
-Clone on any new machine:
-```bash
-git clone https://github.com/ikarys/warp-shell.git ~/warp-shell
-cd ~/warp-shell
-./bootstrap.sh --full
-```
-
-All your tools, configs, and aliases are instantly available!
-
----
-
-## ⚠️ GitHub Rate Limit
-
-**If you see rate limit errors:**
-```
-Error: you are rate-limited by GitHub
-```
-
-**Solution:** Create a free GitHub token (takes 2 min):
-1. Visit https://github.com/settings/tokens
-2. Generate new token (classic) - **no scopes needed**
-3. Export it:
-   ```bash
-   export GITHUB_TOKEN=ghp_your_token_here
-   export TENV_GITHUB_TOKEN=ghp_your_token_here
-   ```
-
-See [docs/GITHUB_TOKEN.md](docs/GITHUB_TOKEN.md) for detailed instructions.
-
-**Without token:** 60 API requests/hour
-**With token:** 5,000 API requests/hour
-
----
-
-## 📝 Next Steps After Installation
-
-1. **Restart terminal** or `source ~/.zshrc`
-2. **Configure Git**:
-   ```bash
-   git config --global user.name "Your Name"
-   git config --global user.email "your@email.com"
-   ```
-3. **Setup Atuin sync** (optional):
-   ```bash
-   atuin register
-   # OR
-   atuin login
-   ```
-4. **Test AI agents**:
-   ```bash
-   ollama run dolphin-mistral "Hello!"
-   ```
-
----
-
-## 🛠️ Maintenance
-
-### Update Everything
-```bash
-just update
-```
-
-### Clean Old Configs
-```bash
-just clean
-```
-
----
-
-## 📚 Documentation
-
-- [Justfile Commands](Justfile) - All available commands
-- [AI Agents](agents/) - Agent scripts
-- [Templates](templates/) - Document templates
-- [Devcontainers](devcontainers/) - Container configs
-
----
-
-## 🤝 Contributing
-
-Feel free to open issues or PRs to improve this setup!
-
----
-
-## 📄 License
-
-MIT License - Use freely!
-
----
-
-## 🙏 Credits
-
-Built with amazing open-source tools:
-- [Starship](https://starship.rs)
-- [Zellij](https://zellij.dev)
-- [Ollama](https://ollama.ai)
-- [Atuin](https://atuin.sh)
-- And many more!
-
----
-
-**Happy coding! 🚀**
+Fait avec ⚡ par [@ikarys](https://github.com/ikarys)

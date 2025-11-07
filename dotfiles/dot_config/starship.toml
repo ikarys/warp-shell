@@ -1,0 +1,145 @@
+# Warp Shell - Starship Configuration (Cyberpunk Theme)
+# =======================================================
+
+# Timeout for commands
+command_timeout = 1000
+scan_timeout = 30
+
+# Format with cyberpunk aesthetic
+format = """
+[╭─](bold cyan)\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$nodejs\
+$rust\
+$docker_context\
+$terraform\
+$kubernetes
+[╰─](bold cyan)$character"""
+
+# Character
+[character]
+success_symbol = "[❯](bold neon_cyan)"
+error_symbol = "[❯](bold neon_magenta)"
+vimcmd_symbol = "[❮](bold neon_yellow)"
+
+# Username
+[username]
+style_user = "bold neon_cyan"
+style_root = "bold red"
+format = "[$user]($style) "
+disabled = false
+show_always = true
+
+# Hostname
+[hostname]
+ssh_only = false
+format = "[@$hostname](bold neon_magenta) "
+disabled = false
+
+# Directory
+[directory]
+style = "bold cyan"
+format = "[$path]($style)[$read_only]($read_only_style) "
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = "…/"
+read_only = " 🔒"
+read_only_style = "red"
+
+[directory.substitutions]
+"Documents" = " 󰈙"
+"Downloads" = "  "
+"Music" = "  "
+"Pictures" = "  "
+"Projects" = "  "
+
+# Git Branch
+[git_branch]
+symbol = " "
+style = "bold neon_magenta"
+format = "[$symbol$branch(:$remote_branch)]($style) "
+
+# Git Status
+[git_status]
+style = "bold neon_yellow"
+format = '([$all_status$ahead_behind]($style) )'
+conflicted = "⚔️ "
+ahead = "⇡${count} "
+behind = "⇣${count} "
+diverged = "⇕⇡${ahead_count}⇣${behind_count} "
+up_to_date = ""
+untracked = "?${count} "
+stashed = "📦${count} "
+modified = "!${count} "
+staged = "+${count} "
+renamed = "»${count} "
+deleted = "✘${count} "
+
+# Command Duration
+[cmd_duration]
+min_time = 500
+style = "bold yellow"
+format = "[took $duration]($style) "
+
+# Python
+[python]
+symbol = " "
+style = "bold neon_cyan"
+format = '[$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)'
+pyenv_version_name = true
+
+# Node.js
+[nodejs]
+symbol = " "
+style = "bold neon_cyan"
+format = "[$symbol($version )]($style)"
+
+# Rust
+[rust]
+symbol = " "
+style = "bold neon_cyan"
+format = "[$symbol($version )]($style)"
+
+# Docker Context
+[docker_context]
+symbol = " "
+style = "bold neon_magenta"
+format = "[$symbol$context]($style) "
+only_with_files = true
+
+# Terraform
+[terraform]
+symbol = "󱁢 "
+style = "bold neon_magenta"
+format = "[$symbol$workspace]($style) "
+
+# Kubernetes
+[kubernetes]
+symbol = "☸ "
+style = "bold neon_cyan"
+format = '[$symbol$context( \($namespace\))]($style) '
+disabled = false
+
+[kubernetes.context_aliases]
+"dev.local.cluster.k8s" = "dev"
+"prod.local.cluster.k8s" = "prod"
+
+# Time (optional, uncomment to enable)
+# [time]
+# disabled = false
+# style = "bold dimmed white"
+# format = "[$time]($style) "
+# time_format = "%T"
+
+# Custom colors (cyberpunk palette)
+[palettes.cyberpunk]
+neon_cyan = "#00ffff"
+neon_magenta = "#ff00ff"
+neon_yellow = "#ffff00"
+neon_red = "#ff0055"
+dark_bg = "#0a0e27"
