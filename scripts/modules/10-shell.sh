@@ -1,51 +1,50 @@
 #!/bin/bash
-# Module 10 - Shell (Zsh + Starship)
+# Module 10 - Shell (Fish + Tide)
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/../utils/colors.sh"
 
-header "Installing shell"
+header "Installation du shell (Fish + Tide)"
 
-# Install Zsh
-if ! command_exists zsh; then
-    step "Installing Zsh..."
-    sudo apt-get install -y zsh
-    success "Zsh installed"
+# Install Fish
+if ! command_exists fish; then
+    step "Installation de Fish..."
+    sudo apt-get install -y software-properties-common
+    sudo add-apt-repository -y ppa:fish-shell/release-3
+    sudo apt-get update -qq
+    sudo apt-get install -y fish
+    success "Fish installé"
 else
-    info "Zsh already installed"
+    info "Fish déjà installé"
 fi
 
-# Set Zsh as default shell
-if [ "$SHELL" != "$(which zsh)" ]; then
-    step "Setting Zsh as default shell..."
-    chsh -s "$(which zsh)"
-    success "Zsh set as default shell"
-    warning "You need to log out and log back in for this to take effect"
+# Set Fish as default shell
+if [ "$SHELL" != "$(which fish)" ]; then
+    step "Fish comme shell par défaut..."
+    command -v fish | sudo tee -a /etc/shells
+    chsh -s "$(which fish)"
+    success "Fish défini comme shell par défaut"
+    warning "Redémarre ta session pour que ça prenne effet"
 else
-    info "Zsh is already the default shell"
+    info "Fish est déjà le shell par défaut"
 fi
 
-# Install Starship
-if ! command_exists starship; then
-    step "Installing Starship..."
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
-    success "Starship installed"
-else
-    info "Starship already installed"
-fi
+# Install Fisher + Tide (runs inside Fish)
+step "Installation de Fisher + Tide..."
+fish -c "
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+    fisher install jorgebucaran/fisher
+    fisher install IlanCosman/tide@v6
+"
+success "Fisher + Tide installés"
 
-# Create Starship config directory
-mkdir -p ~/.config
+# Deploy Fish config
+step "Déploiement de la config Fish..."
+mkdir -p ~/.config/fish
+cp "$SCRIPT_DIR/../../dotfiles/config.fish" ~/.config/fish/config.fish
+success "config.fish déployé"
 
-# Install chezmoi
-if ! command_exists chezmoi; then
-    step "Installing chezmoi..."
-    sh -c "$(curl -fsLS get.chezmoi.io)" -- -b "$HOME/.local/bin"
-    success "chezmoi installed"
-else
-    info "chezmoi already installed"
-fi
-
-success "Module shell installed successfully"
+success "Module shell installé avec succès"
+info "Lance 'tide configure' pour personnaliser ton prompt"
