@@ -8,8 +8,8 @@ source "$SCRIPT_DIR/../utils/colors.sh"
 
 header "Installation des outils CLI modernes"
 
-# Install from apt (available in Ubuntu repos)
-step "Installation des outils disponibles via apt..."
+# Install from apt
+step "Installation via apt..."
 sudo apt-get install -y \
     ripgrep \
     fd-find \
@@ -17,17 +17,32 @@ sudo apt-get install -y \
 
 success "Outils apt installés"
 
-# Install fzf
+# fzf (binary depuis GitHub releases pour garantir >= 0.48.0)
 if ! command_exists fzf; then
     step "Installation de fzf..."
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --key-bindings --completion --no-update-rc
-    success "fzf installé"
+    FZF_VERSION=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    wget -q "https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_VERSION}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
+    tar -xzf /tmp/fzf.tar.gz -C /tmp
+    sudo install /tmp/fzf /usr/local/bin/fzf
+    rm /tmp/fzf.tar.gz /tmp/fzf
+    success "fzf ${FZF_VERSION} installé"
 else
-    info "fzf déjà installé"
+    # Mettre à jour si version < 0.48.0
+    FZF_CURRENT=$(fzf --version | grep -Po '^[0-9.]+')
+    if [ "$(printf '%s\n' "0.48.0" "$FZF_CURRENT" | sort -V | head -1)" = "$FZF_CURRENT" ] && [ "$FZF_CURRENT" != "0.48.0" ]; then
+        warning "fzf ${FZF_CURRENT} trop ancien (< 0.48.0), mise à jour..."
+        FZF_VERSION=$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+        wget -q "https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_VERSION}-linux_amd64.tar.gz" -O /tmp/fzf.tar.gz
+        tar -xzf /tmp/fzf.tar.gz -C /tmp
+        sudo install /tmp/fzf /usr/local/bin/fzf
+        rm /tmp/fzf.tar.gz /tmp/fzf
+        success "fzf mis à jour vers ${FZF_VERSION}"
+    else
+        info "fzf ${FZF_CURRENT} déjà à jour"
+    fi
 fi
 
-# Install bat
+# bat
 if ! command_exists bat; then
     step "Installation de bat..."
     BAT_VERSION="0.24.0"
@@ -39,7 +54,7 @@ else
     info "bat déjà installé"
 fi
 
-# Install eza (modern ls replacement)
+# eza
 if ! command_exists eza; then
     step "Installation de eza..."
     sudo mkdir -p /etc/apt/keyrings
@@ -53,7 +68,7 @@ else
     info "eza déjà installé"
 fi
 
-# Install zoxide
+# zoxide
 if ! command_exists zoxide; then
     step "Installation de zoxide..."
     curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
@@ -62,7 +77,7 @@ else
     info "zoxide déjà installé"
 fi
 
-# Install btop
+# btop
 if ! command_exists btop; then
     step "Installation de btop..."
     BTOP_VERSION="1.3.2"
@@ -75,38 +90,7 @@ else
     info "btop déjà installé"
 fi
 
-# Install atuin (advanced shell history)
-if ! command_exists atuin; then
-    step "Installation de atuin..."
-    curl -sS https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh | bash
-    success "atuin installé"
-else
-    info "atuin déjà installé"
-fi
-
-# Install glow (markdown viewer)
-if ! command_exists glow; then
-    step "Installation de glow..."
-    sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-    sudo apt-get update -qq
-    sudo apt-get install -y glow
-    success "glow installé"
-else
-    info "glow déjà installé"
-fi
-
-# Install tldr
-if ! command_exists tldr; then
-    step "Installation de tldr..."
-    python3 -m pip install --user tldr
-    success "tldr installé"
-else
-    info "tldr déjà installé"
-fi
-
-# Create symlinks for fd (Ubuntu uses fd-find)
+# Symlink fd (Ubuntu uses fd-find)
 if [ ! -e ~/.local/bin/fd ] && command_exists fdfind; then
     mkdir -p ~/.local/bin
     ln -s "$(which fdfind)" ~/.local/bin/fd
