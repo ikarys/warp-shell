@@ -11,11 +11,27 @@ header "Installation du shell (Fish + Tide)"
 # Install Fish
 if ! command_exists fish; then
     step "Installation de Fish..."
-    sudo apt-get install -y software-properties-common
-    sudo add-apt-repository -y ppa:fish-shell/release-3
-    sudo apt-get update -qq
-    sudo apt-get install -y fish
-    success "Fish installé"
+    # Try default apt repos first (Ubuntu 24.04+ ships fish natively)
+    if apt-cache show fish >/dev/null 2>&1; then
+        sudo apt-get install -y fish
+        success "Fish installé (dépôts Ubuntu)"
+    else
+        # Fallback: PPA for older Ubuntu versions (22.04, 24.04)
+        UBUNTU_CODENAME=$(. /etc/os-release && echo "$UBUNTU_CODENAME")
+        PPA_URL="https://ppa.launchpadcontent.net/fish-shell/release-3/ubuntu"
+        if curl -sf "${PPA_URL}/${UBUNTU_CODENAME}/Release" >/dev/null 2>&1; then
+            sudo apt-get install -y software-properties-common
+            sudo add-apt-repository -y ppa:fish-shell/release-3
+            sudo apt-get update -qq
+            sudo apt-get install -y fish
+            success "Fish installé (PPA fish-shell)"
+        else
+            warning "PPA fish-shell non disponible pour $UBUNTU_CODENAME"
+            warning "Tentative via snap..."
+            sudo snap install fish
+            success "Fish installé (snap)"
+        fi
+    fi
 else
     info "Fish déjà installé"
 fi
