@@ -1,45 +1,50 @@
 # 🚀 Warp Shell
 
-Configuration de terminal moderne, modulaire et optimisée pour la productivité. Conçu pour WSL (Ubuntu 22.04/24.04) mais fonctionne sur tout Linux.
+Environnement terminal moderne, modulaire et optimisé pour la productivité.
+Conçu pour WSL (Ubuntu 22.04/24.04) mais fonctionne sur tout Linux.
 
-## ✨ Caractéristiques
+## ✨ Ce que ça installe
 
-### 🐚 Shell Moderne
-- **Zsh** avec configuration optimisée
-- **Starship** prompt cyberpunk thématique
-- **Zellij** multiplexeur terminal intuitif avec layouts pré-configurés
+### 🐚 Shell
+- **Fish** — autosuggestions, syntax highlighting et completions natifs, zéro plugin requis
+- **Tide** — prompt Fish-natif, asynchrone, configurable via `tide configure`
 
-### 🔧 Outils CLI Modernes
-Remplacements performants des outils classiques:
-- `ripgrep` → grep rapide
-- `bat` → cat avec syntax highlighting
-- `eza` → ls moderne avec git awareness
-- `fd` → find simplifié
-- `zoxide` → cd intelligent
-- `fzf` → fuzzy finder universel
-- `delta` → git diff amélioré
-- `atuin` → historique shell avancé
+### 🔧 Outils CLI modernes
+| Classique | Remplacement |
+|---|---|
+| `grep` | `ripgrep` |
+| `cat` | `bat` (syntax highlighting) |
+| `ls` | `eza` (git awareness) |
+| `find` | `fd` |
+| `cd` | `zoxide` (navigation intelligente) |
+| `top` | `btop` |
+| recherche interactive | `fzf` |
+| `jq` | `jq` + `yq` (JSON + YAML) |
 
 ### 💻 Dev Tools
-- **mise** - Gestionnaire de versions multi-langages (Python, Node, Rust)
-- **lazygit** - TUI Git puissant
-- **lazydocker** - TUI Docker
-- **pre-commit** + **commitizen** - Git workflow moderne
-- **Neovim** avec **LazyVim** - IDE moderne dans le terminal
+- **mise** — gestionnaire de versions multi-langages (Python, Node, Rust, Terraform...)
+- **lazygit** — TUI Git
+- **lazydocker** — TUI Docker
+- **delta** — git diff amélioré
+- **pre-commit** — hooks Git
 
-### 🤖 Agents IA
-Agents spécialisés utilisant Ollama:
-- **Jira Draft** - Rédaction de tickets Jira professionnels
-- **Code Review** - Review automatique de code
-- **Traduction** - Traduction de texte et fichiers
+### 🏗️ Infra / Ops
+- **kubectl** + **kubectx** + **kubens** — Kubernetes
+- **k9s** — TUI Kubernetes
+- **yq** — processeur YAML (comme jq pour YAML)
+- Terraform/Terragrunt via **mise**
 
-Modèles optimisés selon ta machine (laptop léger / desktop RTX puissant)
+### 🖥️ Terminal
+- **Zellij** — multiplexeur terminal avec layouts pré-configurés
+
+### 🤖 AI Tools
+- **pi** (`@mariozechner/pi-coding-agent`) — coding agent terminal
+- **Claude Code** (`@anthropic-ai/claude-code`) — Claude dans le terminal
 
 ### 🎨 Thème Cyberpunk
-Thème coordonné à travers tous les outils avec palette néon:
-- Cyan (`#00ffff`)
-- Magenta (`#ff00ff`)
-- Jaune (`#ffff00`)
+Palette néon (cyan `#00ffff` / magenta `#ff00ff` / jaune `#ffff00`) coordonnée entre Starship et Zellij.
+
+---
 
 ## 📦 Installation
 
@@ -48,163 +53,107 @@ Thème coordonné à travers tous les outils avec palette néon:
 - Connexion internet
 - Droits sudo
 
-### Installation Rapide
+### Installation complète
 ```bash
-# Clone le repo
 git clone https://github.com/ikarys/warp-shell.git
 cd warp-shell
-
-# Installation complète
-chmod +x scripts/**/*.sh
 just install
 ```
 
-### Installation Modulaire
+### Installation modulaire
 ```bash
-# Seulement le shell et CLI tools
-just install-base
-just install-shell
-just install-cli-tools
-
-# Dev tools
-just install-dev
-just install-editor
-
-# Terminal multiplexer
-just install-terminal
-
-# Agents IA
-just install-ai
-
-# Thème
-just install-theme
+just install-shell        # Fish + Starship
+just install-cli-tools    # ripgrep, bat, eza, fzf, zoxide, btop...
+just install-dev          # mise, lazygit, lazydocker, delta, pre-commit
+just install-terminal     # Zellij
+just install-infra        # kubectl, k9s, kubectx, yq
+just install-ai-tools     # pi, Claude Code
+just install-theme        # Thème cyberpunk
 ```
+
+### Déployer les dotfiles seuls
+```bash
+just deploy-dotfiles
+```
+
+---
 
 ## 🎯 Quick Start
 
 ### Zellij Layouts
 ```bash
-# Dev layout (neovim + lazygit + terminal)
-zellij --layout dev
-
-# Ops layout (btop + lazydocker + logs)
-zellij --layout ops
-
-# Review layout (code + review + git)
-zellij --layout review
-
-# Ou utilise les alias
-zj-dev
-zj-ops
+zj-dev    # layout dev
+zj-ops    # layout ops
 ```
 
-### Agents IA
+### Langages avec mise
 ```bash
-# Draft Jira ticket
-just jira-draft "Ajouter authentification OAuth2"
-just jira-draft --interactive --lang=en
-
-# Code review
-git add .
-just review
-
-# Traduction
-just translate "Hello world" --to=fr
-just translate-file README.md --to=en
+mise use -g python@latest
+mise use -g node@lts
+mise use -g terraform@latest
 ```
 
-### Dev Workflow
+### Kubernetes
 ```bash
-# Setup langages avec mise
-mise use -g python@latest node@lts rust@latest
-
-# Git avec lazygit
-lg
-
-# Docker avec lazydocker
-ld
-
-# Edit avec Neovim
-nvim myfile.py
+k9s             # TUI Kubernetes
+kx              # changer de contexte (kubectx)
+kns             # changer de namespace (kubens)
 ```
+
+---
 
 ## 🛠️ Commandes Justfile
 
 ```bash
-just --list              # Liste toutes les commandes
-just install            # Installation complète
-just install-<module>   # Installation modulaire
-just sync-dotfiles      # Sync config avec chezmoi
-just update            # Mise à jour des outils
-just clean             # Nettoyage
-just check             # Vérification système
-just info              # Info configuration
+just --list           # Toutes les commandes
+just install          # Installation complète
+just deploy-dotfiles  # Déployer config.fish + starship.toml
+just update           # Mise à jour des outils
+just check            # Vérification système
+just info             # État de l'installation
 ```
-
-## 📁 Structure du Projet
-
-```
-warp-shell/
-├── Justfile                    # Orchestration
-├── scripts/
-│   ├── modules/               # Scripts d'installation modulaires
-│   └── utils/                 # Utilitaires (colors, checks)
-├── dotfiles/                  # Templates dotfiles (chezmoi)
-│   ├── dot_zshrc.tmpl
-│   └── dot_config/
-│       ├── starship.toml
-│       ├── zellij/
-│       └── nvim/
-├── agents/                    # Agents IA
-│   ├── core/                 # Classes de base
-│   ├── jira_draft.py
-│   ├── code_review.py
-│   ├── translate.py
-│   └── config/prompts/       # Prompts système
-├── themes/cyberpunk/          # Thème cyberpunk
-└── docs/                      # Documentation
-```
-
-## 🎨 Customisation
-
-### Ajouter des Alias
-Édite `~/.zshrc.local` (non versionné):
-```bash
-echo 'alias myalias="command"' >> ~/.zshrc.local
-```
-
-### Changer le Thème
-Modifie `~/.config/starship.toml` et `~/.config/zellij/themes/cyberpunk.kdl`
-
-### Créer un Agent IA
-1. Copie un agent existant dans `agents/`
-2. Crée un prompt dans `agents/config/prompts/`
-3. Ajoute une commande dans `Justfile`
-
-## 📖 Documentation
-
-- [Installation détaillée](docs/INSTALL.md)
-- [Guide Agents IA](docs/AGENTS.md)
-- [Raccourcis clavier](docs/KEYBINDINGS.md)
-
-## 🤝 Contribution
-
-Les contributions sont bienvenues! N'hésite pas à ouvrir une issue ou PR.
-
-## 📝 License
-
-MIT License - Fais-en ce que tu veux!
-
-## 🙏 Crédits
-
-Construit avec des outils open source incroyables:
-- [Starship](https://starship.rs/)
-- [Zellij](https://zellij.dev/)
-- [Neovim](https://neovim.io/)
-- [LazyVim](https://www.lazyvim.org/)
-- [Ollama](https://ollama.com/)
-- Et bien d'autres...
 
 ---
 
-Fait avec ⚡ par [@ikarys](https://github.com/ikarys)
+## 📁 Structure
+
+```
+warp-shell/
+├── Justfile
+├── install.sh
+├── scripts/
+│   ├── modules/
+│   │   ├── 00-base.sh        # Dépendances de base
+│   │   ├── 10-shell.sh       # Fish + Starship
+│   │   ├── 20-cli-tools.sh   # Outils CLI modernes
+│   │   ├── 30-dev.sh         # Dev tools
+│   │   ├── 40-terminal.sh    # Zellij
+│   │   ├── 50-infra.sh       # kubectl, k9s, yq
+│   │   └── 60-ai-tools.sh    # pi, Claude Code
+│   └── utils/
+│       ├── colors.sh
+│       └── checks.sh
+├── dotfiles/
+│   ├── config.fish           # Config Fish principale
+│   └── dot_config/
+│       ├── starship.toml     # Prompt cyberpunk
+│       └── zellij/           # Layouts et thème
+└── themes/cyberpunk/
+```
+
+---
+
+## 🎨 Customisation
+
+### Ajout d'alias locaux (non versionnés)
+```bash
+echo 'alias myalias="command"' >> ~/.config/fish/local.fish
+```
+
+Fish charge automatiquement `~/.config/fish/local.fish` s'il existe.
+
+---
+
+## 📝 License
+
+MIT — Fais-en ce que tu veux.
