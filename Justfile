@@ -6,7 +6,7 @@ default:
     @just --list
 
 # Full installation
-install: install-base install-shell install-cli-tools install-dev install-docker install-terminal install-infra install-ai-tools
+install: install-base install-shell install-cli-tools install-dev install-docker install-terminal install-ghostty install-infra install-ai-tools
     @echo "✅ Installation complète terminée!"
     @echo "Reconnecte-toi ou lance 'fish' pour démarrer"
 
@@ -40,6 +40,11 @@ install-terminal:
     @echo "🖥️  Installation de Zellij..."
     @bash scripts/modules/40-terminal.sh
 
+# Install and configure Ghostty
+install-ghostty:
+    @echo "👻 Installation de Ghostty..."
+    @bash scripts/modules/45-ghostty.sh
+
 # Install infra tools (kubectl, k9s, kubectx, yq)
 install-infra:
     @echo "🏗️  Installation des outils infra..."
@@ -60,6 +65,10 @@ deploy-dotfiles:
     @echo "🔄 Déploiement des dotfiles..."
     @mkdir -p ~/.config/fish
     @cp dotfiles/config.fish ~/.config/fish/config.fish
+    @mkdir -p ~/.config/ghostty/themes
+    @cp dotfiles/dot_config/ghostty/config ~/.config/ghostty/config
+    @cp themes/cyberpunk/ghostty ~/.config/ghostty/themes/cyberpunk
+    @fish dotfiles/tide_config.fish
     @echo "✅ Dotfiles déployés"
 
 # Update all tools
