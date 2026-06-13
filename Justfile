@@ -5,7 +5,11 @@
 default:
     @just --list
 
-# Full installation
+# Interactive TUI module selector (recommended)
+setup:
+    @bash scripts/tui.sh
+
+# Full installation (all modules, no prompts)
 install: install-base install-shell install-cli-tools install-dev install-docker install-terminal install-ghostty install-infra install-ai-tools
     @echo "✅ Installation complète terminée!"
     @echo "Reconnecte-toi ou lance 'fish' pour démarrer"

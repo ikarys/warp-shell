@@ -155,20 +155,28 @@ Neon palette (cyan `#00ffff` / magenta `#ff00ff` / yellow `#ffff00`) coordinated
 ## Installation
 
 ### Prerequisites
-- Ubuntu 22.04 or 24.04 (WSL recommended)
+- Ubuntu 22.04, 24.04 or 26.04 (WSL recommended)
 - Internet connection
 - sudo rights
 
-### Full install
+### Interactive install (recommended)
 ```bash
 git clone https://github.com/ikarys/warp-shell.git
 cd warp-shell
+just setup
+```
+
+`just setup` launches an interactive TUI where you pick exactly which modules to install.
+`gum` is bootstrapped automatically on first run — no manual setup required.
+
+### Full install (all modules, no prompts)
+```bash
 just install
 ```
 
 ### Modular install
 ```bash
-just install-shell        # Fish + Starship
+just install-shell        # Fish + Tide
 just install-cli-tools    # ripgrep, bat, eza, fzf, zoxide, btop...
 just install-dev          # mise, lazygit, lazydocker, delta, pre-commit
 just install-terminal     # Zellij
@@ -213,7 +221,8 @@ kns             # switch namespace (kubens)
 
 ```bash
 just --list           # All available commands
-just install          # Full install
+just setup            # Interactive TUI module selector
+just install          # Full install (all modules, no prompts)
 just deploy-dotfiles  # Deploy config.fish + starship.toml
 just update           # Update all tools
 just check            # System health check
@@ -227,14 +236,17 @@ just info             # Current install state
 ```
 warp-shell/
 ├── Justfile
-├── install.sh
 ├── scripts/
+│   ├── tui.sh                # Interactive TUI module selector
+│   ├── install-theme.sh      # Cyberpunk theme deployer
 │   ├── modules/
 │   │   ├── 00-base.sh        # Base dependencies
-│   │   ├── 10-shell.sh       # Fish + Starship
+│   │   ├── 10-shell.sh       # Fish + Tide
 │   │   ├── 20-cli-tools.sh   # Modern CLI tools
 │   │   ├── 30-dev.sh         # Dev tools
+│   │   ├── 35-docker.sh      # Docker CE
 │   │   ├── 40-terminal.sh    # Zellij
+│   │   ├── 45-ghostty.sh     # Ghostty terminal
 │   │   ├── 50-infra.sh       # kubectl, k9s, yq
 │   │   └── 60-ai-tools.sh    # pi, Claude Code
 │   └── utils/
@@ -244,8 +256,9 @@ warp-shell/
 │   ├── config.fish           # Main Fish config
 │   └── dot_config/
 │       ├── starship.toml     # Cyberpunk prompt
+│       ├── ghostty/config    # Ghostty config
 │       └── zellij/           # Layouts and theme
-└── themes/cyberpunk/
+└── themes/cyberpunk/         # Coordinated palette (Starship, Zellij, Ghostty)
 ```
 
 ---
