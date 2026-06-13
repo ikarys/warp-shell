@@ -11,7 +11,7 @@ header "Installation des dépendances de base"
 # Clean up any broken fish PPA leftover from previous install attempts
 if ls /etc/apt/sources.list.d/*fish* >/dev/null 2>&1; then
     UBUNTU_CODENAME=$(. /etc/os-release && echo "$UBUNTU_CODENAME")
-    PPA_URL="https://ppa.launchpadcontent.net/fish-shell/release-3/ubuntu"
+    PPA_URL="https://ppa.launchpadcontent.net/fish-shell/release-4/ubuntu"
     if ! curl -sf "${PPA_URL}/${UBUNTU_CODENAME}/Release" >/dev/null 2>&1; then
         step "Suppression du PPA fish-shell incompatible avec $UBUNTU_CODENAME..."
         sudo rm -f /etc/apt/sources.list.d/*fish*

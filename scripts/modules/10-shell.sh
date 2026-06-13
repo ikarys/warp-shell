@@ -18,13 +18,13 @@ if ! command_exists fish; then
     else
         # Fallback: PPA for older Ubuntu versions (22.04, 24.04)
         UBUNTU_CODENAME=$(. /etc/os-release && echo "$UBUNTU_CODENAME")
-        PPA_URL="https://ppa.launchpadcontent.net/fish-shell/release-3/ubuntu"
+        PPA_URL="https://ppa.launchpadcontent.net/fish-shell/release-4/ubuntu"
         if curl -sf "${PPA_URL}/${UBUNTU_CODENAME}/Release" >/dev/null 2>&1; then
             sudo apt-get install -y software-properties-common
-            sudo add-apt-repository -y ppa:fish-shell/release-3
+            sudo add-apt-repository -y ppa:fish-shell/release-4
             sudo apt-get update -qq
             sudo apt-get install -y fish
-            success "Fish installé (PPA fish-shell)"
+            success "Fish installé (PPA fish-shell 4.x)"
         else
             warning "PPA fish-shell non disponible pour $UBUNTU_CODENAME"
             warning "Tentative via snap..."
@@ -37,10 +37,12 @@ else
 fi
 
 # Set Fish as default shell
-if [ "$SHELL" != "$(which fish)" ]; then
+FISH_PATH="$(which fish)"
+CURRENT_SHELL="$(getent passwd "$USER" | cut -d: -f7)"
+if [ "$CURRENT_SHELL" != "$FISH_PATH" ]; then
     step "Fish comme shell par défaut..."
-    command -v fish | sudo tee -a /etc/shells
-    chsh -s "$(which fish)"
+    grep -qxF "$FISH_PATH" /etc/shells || echo "$FISH_PATH" | sudo tee -a /etc/shells
+    sudo usermod -s "$FISH_PATH" "$USER"
     success "Fish défini comme shell par défaut"
     warning "Redémarre ta session pour que ça prenne effet"
 else
