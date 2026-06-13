@@ -45,7 +45,7 @@ fi
 # bat
 if ! command_exists bat; then
     step "Installation de bat..."
-    BAT_VERSION="0.24.0"
+    BAT_VERSION="0.26.0"
     wget -q "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" -O /tmp/bat.deb
     sudo dpkg -i /tmp/bat.deb
     rm /tmp/bat.deb
@@ -80,12 +80,17 @@ fi
 # btop
 if ! command_exists btop; then
     step "Installation de btop..."
-    BTOP_VERSION="1.3.2"
-    wget -q "https://github.com/aristocratos/btop/releases/download/v${BTOP_VERSION}/btop-x86_64-linux-musl.tbz" -O /tmp/btop.tbz
-    tar -xjf /tmp/btop.tbz -C /tmp
-    sudo /tmp/btop/install.sh
-    rm -rf /tmp/btop.tbz /tmp/btop
-    success "btop installé"
+    if apt-cache show btop >/dev/null 2>&1; then
+        sudo apt-get install -y btop
+        success "btop installé (apt)"
+    else
+        BTOP_VERSION=$(curl -s "https://api.github.com/repos/aristocratos/btop/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+        wget -q "https://github.com/aristocratos/btop/releases/download/v${BTOP_VERSION}/btop-x86_64-linux-musl.tbz" -O /tmp/btop.tbz
+        tar -xjf /tmp/btop.tbz -C /tmp
+        sudo /tmp/btop/install.sh
+        rm -rf /tmp/btop.tbz /tmp/btop
+        success "btop ${BTOP_VERSION} installé (GitHub)"
+    fi
 else
     info "btop déjà installé"
 fi

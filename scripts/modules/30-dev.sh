@@ -43,7 +43,7 @@ fi
 # delta (better git diff)
 if ! command_exists delta; then
     step "Installation de delta..."
-    DELTA_VERSION="0.17.0"
+    DELTA_VERSION="0.19.2"
     wget -q "https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb" -O /tmp/delta.deb
     sudo dpkg -i /tmp/delta.deb
     rm /tmp/delta.deb
@@ -52,11 +52,20 @@ else
     info "delta déjà installé"
 fi
 
-# pre-commit
+# pre-commit (pip --user blocked on Python 3.12+ / PEP 668 — use apt or pipx)
 if ! command_exists pre-commit; then
     step "Installation de pre-commit..."
-    python3 -m pip install --user pre-commit
-    success "pre-commit installé"
+    if apt-cache show pre-commit >/dev/null 2>&1; then
+        sudo apt-get install -y pre-commit
+        success "pre-commit installé (apt)"
+    elif command_exists pipx; then
+        pipx install pre-commit
+        success "pre-commit installé (pipx)"
+    else
+        sudo apt-get install -y pipx
+        pipx install pre-commit
+        success "pre-commit installé (pipx)"
+    fi
 else
     info "pre-commit déjà installé"
 fi

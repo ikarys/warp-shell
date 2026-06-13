@@ -22,7 +22,7 @@ fi
 # kubectx + kubens
 if ! command_exists kubectx; then
     step "Installation de kubectx + kubens..."
-    KUBECTX_VERSION="0.9.5"
+    KUBECTX_VERSION="0.9.5"  # check ahmetb/kubectx for latest — 0.11.0+ available
     wget -q "https://github.com/ahmetb/kubectx/releases/download/v${KUBECTX_VERSION}/kubectx_v${KUBECTX_VERSION}_linux_x86_64.tar.gz" -O /tmp/kubectx.tar.gz
     tar -xzf /tmp/kubectx.tar.gz -C /tmp
     sudo install /tmp/kubectx /usr/local/bin/kubectx
