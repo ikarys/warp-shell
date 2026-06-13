@@ -1,92 +1,199 @@
-# 🚀 Warp Shell
+# Warp Shell
 
-Environnement terminal moderne, modulaire et optimisé pour la productivité.
-Conçu pour WSL (Ubuntu 22.04/24.04) mais fonctionne sur tout Linux.
+Modern, modular terminal environment optimised for productivity.
+Designed for WSL (Ubuntu 22.04/24.04/26.04) but works on any Linux.
 
-## ✨ Ce que ça installe
+## What it installs
 
-### 🐚 Shell
-- **Fish** — autosuggestions, syntax highlighting et completions natifs, zéro plugin requis
-- **Tide** — prompt Fish-natif, asynchrone, configurable via `tide configure`
+### Shell
+- **Fish** — autosuggestions, syntax highlighting and completions built-in, zero plugins required
+- **Tide** — native Fish prompt, async, configurable via `tide configure`
 
-### 🔧 Outils CLI modernes
-| Classique | Remplacement |
-|---|---|
-| `grep` | `ripgrep` |
-| `cat` | `bat` (syntax highlighting) |
-| `ls` | `eza` (git awareness) |
-| `find` | `fd` |
-| `cd` | `zoxide` (navigation intelligente) |
-| `top` | `btop` |
-| recherche interactive | `fzf` |
-| `jq` | `jq` + `yq` (JSON + YAML) |
+### Modern CLI tools
 
-### 💻 Dev Tools
-- **mise** — gestionnaire de versions multi-langages (Python, Node, Rust, Terraform...)
-- **lazygit** — TUI Git
-- **lazydocker** — TUI Docker
-- **delta** — git diff amélioré
-- **pre-commit** — hooks Git
+These tools coexist with their native equivalents — they don't replace them, they add to them.
 
-### 🏗️ Infra / Ops
+| Native command | Installed tool | Command |
+|---|---|---|
+| `grep` | `ripgrep` | `rg` |
+| `cat` | `bat` | `bat` |
+| `ls` | `eza` | `eza` / `ll` / `l` / `lt` |
+| `find` | `fd` | `fd` |
+| `cd` | `zoxide` | `z` |
+| `top` | `btop` | `btop` |
+| — | `fzf` | `fzf` |
+| — | `jq` + `yq` | `jq` / `yq` |
+
+#### `rg` — ripgrep (grep, but fast and ergonomic)
+
+```bash
+grep -r "TODO" src/          # native
+rg "TODO" src/               # rg: respects .gitignore, coloured, faster
+
+grep -rn "func " --include="*.go"
+rg "func " -t go             # rg: built-in file type filtering
+
+grep -rl "pattern" .         # list matching files
+rg -l "pattern"
+
+rg "error" --ignore-case
+rg "fn \w+" -t rust          # PCRE2 regex by default
+```
+
+#### `bat` — cat with syntax highlighting
+
+```bash
+cat main.go                  # native: plain text
+bat main.go                  # bat: syntax colours, line numbers, header
+
+bat -n main.go               # line numbers only, no decoration
+bat --paging=never main.go   # behaves like cat, no pager
+bat *.json                   # multiple files with separators
+bat -l yaml config.txt       # force language when extension is misleading
+```
+
+#### `eza` — ls with Git awareness and icons
+
+```bash
+ls -la                       # native
+ll                           # alias → eza -alh --git: size, perms, Git status
+
+ls --tree                    # not native on Linux
+lt                           # alias → eza --tree: full directory tree
+eza --tree --level=2         # limit depth
+
+eza -l --git-ignore          # respect .gitignore
+eza -l --sort=modified       # sort by modification date
+```
+
+#### `fd` — find with a human-friendly syntax
+
+```bash
+find . -name "*.ts" -type f              # native
+fd "\.ts$"                               # fd: ignores node_modules/.git by default
+
+find . -name "*.log" -exec rm {} \;
+fd "\.log$" --exec rm                    # fd: more readable
+
+find . -mtime -7 -type f                 # files modified this week
+fd --changed-within 7d
+
+fd -e py -x black {}                     # run black on every .py file
+```
+
+#### `z` — zoxide (smart cd by frequency)
+
+```bash
+cd ~/workspace/warp-shell    # native: full path required
+z warp                       # zoxide: jumps to the most frequent match for "warp"
+
+cd -                         # native: previous directory
+z -                          # same
+
+zi                           # interactive mode with fzf to pick from known dirs
+```
+
+#### `btop` — interactive system monitor
+
+```bash
+top                          # native: sparse interface
+btop                         # btop: CPU/RAM/network/disk graphs, click-to-sort, built-in kill
+```
+
+#### `fzf` — interactive fuzzy finder (no native equivalent)
+
+```bash
+# Fuzzy command history search (replaces Ctrl+R)
+history | fzf
+
+# Open a file interactively
+vim $(fd -t f | fzf)
+
+# Pipe a selection into another command
+rg "TODO" -l | fzf | xargs bat
+```
+
+#### `jq` / `yq` — JSON and YAML processors
+
+```bash
+cat data.json | python3 -m json.tool     # native: basic reformatting
+cat data.json | jq '.'                   # jq: reformatted + coloured
+
+jq '.users[].name' data.json            # extract fields
+jq 'select(.age > 18)' data.json        # filter
+
+yq '.spec.containers[].image' pod.yaml  # same syntax as jq, for YAML
+yq -i '.replicas = 3' deployment.yaml   # in-place edit
+```
+
+### Dev Tools
+- **mise** — multi-language version manager (Python, Node, Rust, Terraform...)
+- **lazygit** — Git TUI
+- **lazydocker** — Docker TUI
+- **delta** — improved git diff
+- **pre-commit** — Git hooks
+
+### Infra / Ops
 - **kubectl** + **kubectx** + **kubens** — Kubernetes
-- **k9s** — TUI Kubernetes
-- **yq** — processeur YAML (comme jq pour YAML)
+- **k9s** — Kubernetes TUI
+- **yq** — YAML processor (like jq for YAML)
 - Terraform/Terragrunt via **mise**
 
-### 🖥️ Terminal
-- **Zellij** — multiplexeur terminal avec layouts pré-configurés
+### Terminal
+- **Ghostty** — GPU-accelerated terminal with Fish integration and cyberpunk theme
+- **Zellij** — terminal multiplexer with pre-configured layouts
 
-### 🤖 AI Tools
-- **pi** (`@mariozechner/pi-coding-agent`) — coding agent terminal
-- **Claude Code** (`@anthropic-ai/claude-code`) — Claude dans le terminal
+### AI Tools
+- **pi** (`@mariozechner/pi-coding-agent`) — terminal coding agent
+- **Claude Code** (`@anthropic-ai/claude-code`) — Claude in the terminal
 
-### 🎨 Thème Cyberpunk
-Palette néon (cyan `#00ffff` / magenta `#ff00ff` / jaune `#ffff00`) coordonnée entre Starship et Zellij.
+### Cyberpunk Theme
+Neon palette (cyan `#00ffff` / magenta `#ff00ff` / yellow `#ffff00`) coordinated across Starship and Zellij.
 
 ---
 
-## 📦 Installation
+## Installation
 
-### Prérequis
-- Ubuntu 22.04 ou 24.04 (WSL recommandé)
-- Connexion internet
-- Droits sudo
+### Prerequisites
+- Ubuntu 22.04 or 24.04 (WSL recommended)
+- Internet connection
+- sudo rights
 
-### Installation complète
+### Full install
 ```bash
 git clone https://github.com/ikarys/warp-shell.git
 cd warp-shell
 just install
 ```
 
-### Installation modulaire
+### Modular install
 ```bash
 just install-shell        # Fish + Starship
 just install-cli-tools    # ripgrep, bat, eza, fzf, zoxide, btop...
 just install-dev          # mise, lazygit, lazydocker, delta, pre-commit
 just install-terminal     # Zellij
+just install-ghostty      # Ghostty + cyberpunk theme
 just install-infra        # kubectl, k9s, kubectx, yq
 just install-ai-tools     # pi, Claude Code
-just install-theme        # Thème cyberpunk
+just install-theme        # Cyberpunk theme
 ```
 
-### Déployer les dotfiles seuls
+### Deploy dotfiles only
 ```bash
 just deploy-dotfiles
 ```
 
 ---
 
-## 🎯 Quick Start
+## Quick Start
 
 ### Zellij Layouts
 ```bash
-zj-dev    # layout dev
-zj-ops    # layout ops
+zj-dev    # dev layout
+zj-ops    # ops layout
 ```
 
-### Langages avec mise
+### Languages with mise
 ```bash
 mise use -g python@latest
 mise use -g node@lts
@@ -95,27 +202,27 @@ mise use -g terraform@latest
 
 ### Kubernetes
 ```bash
-k9s             # TUI Kubernetes
-kx              # changer de contexte (kubectx)
-kns             # changer de namespace (kubens)
+k9s             # Kubernetes TUI
+kx              # switch context (kubectx)
+kns             # switch namespace (kubens)
 ```
 
 ---
 
-## 🛠️ Commandes Justfile
+## Justfile commands
 
 ```bash
-just --list           # Toutes les commandes
-just install          # Installation complète
-just deploy-dotfiles  # Déployer config.fish + starship.toml
-just update           # Mise à jour des outils
-just check            # Vérification système
-just info             # État de l'installation
+just --list           # All available commands
+just install          # Full install
+just deploy-dotfiles  # Deploy config.fish + starship.toml
+just update           # Update all tools
+just check            # System health check
+just info             # Current install state
 ```
 
 ---
 
-## 📁 Structure
+## Structure
 
 ```
 warp-shell/
@@ -123,9 +230,9 @@ warp-shell/
 ├── install.sh
 ├── scripts/
 │   ├── modules/
-│   │   ├── 00-base.sh        # Dépendances de base
+│   │   ├── 00-base.sh        # Base dependencies
 │   │   ├── 10-shell.sh       # Fish + Starship
-│   │   ├── 20-cli-tools.sh   # Outils CLI modernes
+│   │   ├── 20-cli-tools.sh   # Modern CLI tools
 │   │   ├── 30-dev.sh         # Dev tools
 │   │   ├── 40-terminal.sh    # Zellij
 │   │   ├── 50-infra.sh       # kubectl, k9s, yq
@@ -134,26 +241,26 @@ warp-shell/
 │       ├── colors.sh
 │       └── checks.sh
 ├── dotfiles/
-│   ├── config.fish           # Config Fish principale
+│   ├── config.fish           # Main Fish config
 │   └── dot_config/
-│       ├── starship.toml     # Prompt cyberpunk
-│       └── zellij/           # Layouts et thème
+│       ├── starship.toml     # Cyberpunk prompt
+│       └── zellij/           # Layouts and theme
 └── themes/cyberpunk/
 ```
 
 ---
 
-## 🎨 Customisation
+## Customisation
 
-### Ajout d'alias locaux (non versionnés)
+### Local aliases (unversioned)
 ```bash
 echo 'alias myalias="command"' >> ~/.config/fish/local.fish
 ```
 
-Fish charge automatiquement `~/.config/fish/local.fish` s'il existe.
+Fish automatically loads `~/.config/fish/local.fish` if it exists.
 
 ---
 
-## 📝 License
+## License
 
-MIT — Fais-en ce que tu veux.
+MIT — do whatever you want with it.
