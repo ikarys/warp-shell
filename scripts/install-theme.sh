@@ -28,12 +28,17 @@ else
     warning "Fichier zellij-theme.kdl non trouvé"
 fi
 
-# Neovim colorscheme
-if [ -d ~/.config/nvim ]; then
-    step "Configuration du colorscheme Neovim..."
-    # LazyVim will handle the colorscheme via lua config
-    info "Configure le colorscheme dans ~/.config/nvim/lua/config/options.lua"
-    info "Ajoute: vim.g.lazyvim_colorscheme = 'tokyonight-storm'"
+# Ghostty theme
+if [ -f "$SCRIPT_DIR/../themes/cyberpunk/ghostty" ]; then
+    if command -v ghostty >/dev/null 2>&1; then
+        mkdir -p ~/.config/ghostty/themes
+        cp "$SCRIPT_DIR/../themes/cyberpunk/ghostty" ~/.config/ghostty/themes/cyberpunk
+        success "Thème Ghostty installé"
+    else
+        info "Ghostty non installé — thème ignoré (installe avec: just install-ghostty)"
+    fi
+else
+    warning "Fichier ghostty theme non trouvé"
 fi
 
 success "Thème Cyberpunk installé"

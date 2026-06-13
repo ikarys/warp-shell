@@ -132,6 +132,20 @@ else
     check_warn "zellij config: absente (~/.config/zellij)"
 fi
 
+check_cmd "ghostty" ghostty "--version"
+
+if [ -f ~/.config/ghostty/config ]; then
+    check_ok "ghostty config: présente"
+else
+    check_warn "ghostty config: absente (lance just install-ghostty)"
+fi
+
+if [ -f ~/.config/ghostty/themes/cyberpunk ]; then
+    check_ok "ghostty theme cyberpunk: présent"
+else
+    check_warn "ghostty theme cyberpunk: absent (lance just install-theme)"
+fi
+
 # ============================================
 header "🏗️  Infra"
 # ============================================

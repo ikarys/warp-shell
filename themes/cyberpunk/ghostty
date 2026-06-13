@@ -1,0 +1,29 @@
+# Ghostty Cyberpunk Theme — Neon Noir / Synthwave
+# Palette: deep space bg + neon cyan/magenta/green/yellow
+
+background = 0d0221
+foreground = e8d8ff
+
+cursor-color = f7ff00
+selection-background = cc00ff
+selection-foreground = 0d0221
+
+# Normal colors (dim)
+palette = 0=#0d0221
+palette = 1=#ff003c
+palette = 2=#00ff41
+palette = 3=#f7ff00
+palette = 4=#0090ff
+palette = 5=#cc00ff
+palette = 6=#00ffff
+palette = 7=#c8c8e8
+
+# Bright colors (neon pop)
+palette = 8=#2a1f4a
+palette = 9=#ff3366
+palette = 10=#39ff14
+palette = 11=#ffff00
+palette = 12=#00b4ff
+palette = 13=#ff00ff
+palette = 14=#55ffff
+palette = 15=#ffffff
